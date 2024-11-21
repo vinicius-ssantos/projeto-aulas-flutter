@@ -1,7 +1,9 @@
 import 'package:aula_flutter_full08/pages/login.dart';
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 
-void main() {
+Future<void> main() async {
+  await initLocalStorage();
   runApp(const MyApp());
 }
 

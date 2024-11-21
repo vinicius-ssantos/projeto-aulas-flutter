@@ -1,7 +1,14 @@
+import 'package:aula_flutter_full08/pages/create_user.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  void goToCreateUser(context) {
+    Navigator.push(context,
+      MaterialPageRoute(builder: (context) => const CreateUserPage())
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +18,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.person_add),
-            onPressed: () {},
+            onPressed: () => goToCreateUser(context),
           )
         ],
       ),

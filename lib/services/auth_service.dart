@@ -3,13 +3,29 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:aula_flutter_full08/models/user.dart';
+import 'package:localstorage/localstorage.dart';
 
 
 class AuthService {
 
   final String _baseUrl = 'http://192.168.0.12:3030/auth/login';
+  final String _sessionKey = 'auth@SESSION_KEY';
 
-  Future<User?> login(String username, String password) async {
+  User? getSession() {
+    var json = localStorage.getItem(_sessionKey);
+    if (json == null) return null;
+
+    print('JSON: $json');
+    dynamic obj = jsonDecode(json);
+    return User.fromObject(obj);
+  }
+
+  void _setSession(User user) {
+    String json = jsonEncode(user.toObject());
+    localStorage.setItem(_sessionKey, json);
+  }
+
+  Future<bool> login(String username, String password) async {
     final response = await http.post(
       Uri.parse(_baseUrl),
       headers: {
@@ -22,10 +38,10 @@ class AuthService {
       dynamic obj = jsonDecode(response.body);
       final user = User.fromObject(obj);
 
-      print(user.token);
-      return user;
+      _setSession(user);
+      return true;
     }
-    return null;
+    return false;
   }
 
 }

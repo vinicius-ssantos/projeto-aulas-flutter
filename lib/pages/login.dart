@@ -1,6 +1,8 @@
+import 'package:aula_flutter_full08/components/my_button.dart';
 import 'package:aula_flutter_full08/components/my_input.dart';
 import 'package:aula_flutter_full08/pages/home.dart';
 import 'package:aula_flutter_full08/services/auth_service.dart';
+import 'package:aula_flutter_full08/util.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,29 +17,14 @@ class _LoginPageState extends State<LoginPage> {
   String _username = '';
   String _password = '';
 
-  void alert(String text) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(text),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK')
-          )
-        ],
-      )
-    );
-  }
-
   Future<void> signIn() async {
-    final logged = await authService.login(_username, _password);
-    if (logged == null) {
-      alert('Login/senha inválido(a)!');
-    } else {
+    final isLogged = await authService.login(_username, _password);
+    if (isLogged) {
       Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const HomePage())
       );
+    } else {
+      Util.alert(context, 'Login/senha inválido(a)!');
     }
   }
 
@@ -56,16 +43,9 @@ class _LoginPageState extends State<LoginPage> {
             obscureText: true,
             change: (value) => _password = value,
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.login),
-                label: const Text('Entrar'),
-                onPressed: signIn,
-              ),
-            ),
+          MyButton(
+            text: 'Entrar',
+            onPress: signIn
           )
         ],
       )
