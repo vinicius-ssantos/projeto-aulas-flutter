@@ -6,7 +6,7 @@ import 'package:aula_flutter_full08/models/user.dart';
 import 'package:localstorage/localstorage.dart';
 
 
-class AuthService {
+class _AuthService {
 
   final String _baseUrl = 'http://192.168.0.12:3030/auth/login';
   final String _sessionKey = 'auth@SESSION_KEY';
@@ -15,7 +15,6 @@ class AuthService {
     var json = localStorage.getItem(_sessionKey);
     if (json == null) return null;
 
-    print('JSON: $json');
     dynamic obj = jsonDecode(json);
     return User.fromObject(obj);
   }
@@ -43,5 +42,6 @@ class AuthService {
     }
     return false;
   }
-
 }
+
+final authService = _AuthService();

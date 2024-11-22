@@ -40,8 +40,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
 
     final User user = User(null, _name, _username, _password);
     
-    UserService service = UserService();
-    service.create(user).then((isSaved) {
+    userService.create(user).then((isSaved) {
       if (isSaved) {
         Navigator.pop(context);
       } else {
