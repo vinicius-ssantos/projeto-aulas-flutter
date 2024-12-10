@@ -1,9 +1,9 @@
 import 'package:aula_flutter_full08/models/user.dart';
-import 'package:aula_flutter_full08/pages/create_user.dart';
+import 'package:aula_flutter_full08/pages/user/create_user.dart';
 import 'package:aula_flutter_full08/services/user_service.dart';
 import 'package:flutter/material.dart';
 
-import 'edit_user.dart';
+import 'user/edit_user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -4,6 +4,8 @@ import 'package:aula_flutter_full08/models/user.dart';
 import 'package:aula_flutter_full08/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/Role.dart';
+
 class UserService {
 
   final String _baseUrl = 'http://192.168.1.104:3030/users';
@@ -88,6 +90,20 @@ class UserService {
     }
   }
 
+  
+  Future<List<Role>> getRoles() async {
+    final response = await http.get(
+      Uri.parse('$_baseUrl/roles'), // Atualize o endpoint de acordo com seu backend
+      headers: _getHeaders(),
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> list = List.from(jsonDecode(response.body));
+      return list.map((e) => Role.fromObject(e)).toList();
+    } else {
+      throw Exception('Erro ao buscar as roles!');
+    }
+  }
 }
 
 final userService = UserService();

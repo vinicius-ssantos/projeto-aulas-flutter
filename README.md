@@ -1,16 +1,34 @@
-# aula_flutter_full08
+# Gerenciamento de Usuários e Roles
 
-A new Flutter project.
+Este é um projeto Flutter que implementa funcionalidades de gerenciamento de usuários e papéis (roles). Ele utiliza uma API REST para realizar operações de CRUD e autenticação.
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
+- **Login**: Autenticação de usuários.
+- **Gerenciamento de Usuários**:
+    - Listar usuários.
+    - Criar novo usuário.
+    - Editar informações de um usuário.
+    - Deletar usuários.
+- **Gerenciamento de Roles**:
+    - Listar as roles disponíveis no sistema.
 
-A few resources to get you started if this is your first Flutter project:
+## Estrutura do Projeto
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Pastas Principais
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **models**: Contém os modelos (`User`, `Role`) que representam as entidades do sistema.
+- **services**: Contém os serviços para comunicação com a API (`AuthService`, `UserService`).
+- **pages**: Contém as telas do aplicativo:
+    - `login.dart`: Tela de login.
+    - `home.dart`: Tela inicial com a listagem de usuários.
+    - `create_user.dart`: Tela para criação de um novo usuário.
+    - `edit_user.dart`: Tela para edição de um usuário.
+    - `roles_page.dart`: Tela para listagem de roles.
+
+## Configuração
+
+1. Certifique-se de que o Flutter esteja instalado no sistema.
+2. Clone o repositório:
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
