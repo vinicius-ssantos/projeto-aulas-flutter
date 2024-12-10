@@ -38,15 +38,18 @@ class _CreateUserPageState extends State<CreateUserPage> {
       return;
     }
 
-    final User user = User(null, _name, _username, _password);
+    final User newUser = User(null, _name, _username, _password);
     
-    userService.create(user).then((isSaved) {
+    userService.create(newUser).then((isSaved) {
       if (isSaved) {
-        Navigator.pop(context);
+        Navigator.pop(context, newUser);
       } else {
         Util.alert(context, 'Usuário já existe!');
       }
     }).catchError((error) {
+      print('Erro ao criar o usuário!');
+      print(error);
+     print(newUser.toString());
       Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const LoginPage())
       );

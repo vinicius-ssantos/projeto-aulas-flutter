@@ -4,9 +4,9 @@ import 'package:aula_flutter_full08/models/user.dart';
 import 'package:aula_flutter_full08/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 
-class _UserService {
+class UserService {
 
-  final String _baseUrl = 'http://192.168.0.12:3030/users';
+  final String _baseUrl = 'http://192.168.1.104:3030/users';
 
   Map<String, String> _getHeaders() {
     User? session = authService.getSession();
@@ -50,6 +50,44 @@ class _UserService {
 
     return false;
   }
+
+
+  Future<User> update(User user) async {
+      final response = await http.put(
+          Uri.parse('$_baseUrl/${user.id}'),
+          headers: _getHeaders(),
+          body: jsonEncode(user.toObject())
+      );
+      if (response.statusCode == 200) {
+        print('RESPONSE BODY SUCESSO ${response.body}');
+        return User.fromObject(jsonDecode(response.body));
+      }else{
+        print('RESPONSE BODY ERRO  ${response.body}');
+        throw Exception('Erro ao atualizar o usuário!');
+      }
+  }
+
+  Future<bool> delete(User user) async {
+    final response = await http.delete(
+      Uri.parse('$_baseUrl/${user.id}'),
+      headers: _getHeaders(),
+    );
+
+    if (response.statusCode == 200) {
+      // Retorna true se a exclusão foi bem-sucedida
+      return true;
+    } else if (response.statusCode == 404) {
+      // Caso o usuário não seja encontrado
+      throw Exception('Usuário não encontrado!');
+    } else if (response.statusCode == 403) {
+      // Caso não tenha permissão
+      throw Exception('Você não tem permissão para excluir este usuário!');
+    } else {
+      // Outros erros
+      throw Exception('Erro ao excluir o usuário!');
+    }
+  }
+
 }
 
-final userService = _UserService();
+final userService = UserService();
